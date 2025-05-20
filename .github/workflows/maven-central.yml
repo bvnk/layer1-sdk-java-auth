@@ -32,4 +32,6 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: echo ${{ secrets.OSSRH_USERNAME }} && ./gradlew publish --no-daemon --stacktrace 
+        run: ./gradlew build && ./gradlew jreleaserFullRelease
+
+        

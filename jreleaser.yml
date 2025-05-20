@@ -1,0 +1,38 @@
+project:
+  name: layer1-sdk-java-auth
+  version: 1.0.0
+  description: Java SDK for Layer 1 Authentication
+  website: https://github.com/bvnk/layer1-sdk-java-auth
+  authors:
+    - BVNK <layer1@bvnk.com>
+  license: MIT
+
+release:
+  github:
+    owner: bvnk
+    name: layer1-sdk-java-auth
+    tagName: '{{projectVersion}}'
+    releaseName: 'Release {{projectVersion}}'
+    draft: false
+    prerelease: false
+
+deploy:
+  maven:
+    central:
+      active: ALWAYS
+      url: https://oss.sonatype.org/service/local/staging/deploy/maven2/
+      snapshotUrl: https://oss.sonatype.org/content/repositories/snapshots/
+      coordinates:
+        groupId: com.layer1.clients
+        artifactId: layer1-sdk-java-auth
+        version: 1.0.0
+      signing:
+        active: ALWAYS
+      credentials:
+        username: {{ env.OSSRH_USERNAME }}
+        password: {{ env.OSSRH_PASSWORD }}
+      gpg:
+        passphrase: {{ env.GPG_PASSPHRASE }}
+        publicKey: {{ env.GPG_PUBLIC_KEY }}
+        secretKey: {{ env.GPG_PRIVATE_KEY }}
+        
