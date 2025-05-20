@@ -39,3 +39,41 @@ spotless {
         googleJavaFormat()
     }
 }
+
+jreleaser {
+    project {
+        name = 'layer1-sdk-java-auth'
+        version = "${version}"
+        description = 'Layer1 Java SDK for Authentication'
+        website = 'https://github.com/bvnk/layer1-sdk-java-auth'
+        author: 'BVNK <layer1@bvnk.com>'
+        license: "MIT"
+    }
+
+    release {
+        github {
+            owner = 'bvnk'
+            name = 'layer1-sdk-java-auth'
+            tagName = "${version}"
+            releaseName = "${version}"
+            draft = false
+            prerelease = false
+        }
+    }
+
+    signing {
+        active = 'ALWAYS'
+        armored = true
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('target/staging-deploy')
+                }
+            }
+        }
+    }
+}
