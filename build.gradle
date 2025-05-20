@@ -36,6 +36,40 @@ publishing {
             groupId = project.group
             artifactId = project.name
             version = project.version
+
+            pom {
+                name = 'layer1-sdk-java-auth'
+                description = 'Java SDK for Layer 1 Authentication'
+                url = 'https://github.com/bvnk/layer1-sdk-java-auth'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'bvnk'
+                        name = 'BVNK'
+                        email = 'layer1@bvnk.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/bvnk/layer1-sdk-java-auth.git'
+                    developerConnection = 'scm:git:ssh://github.com/bvnk/layer1-sdk-java-auth.git'
+                    url = 'https://github.com/bvnk/layer1-sdk-java-auth'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = System.getenv("OSSRH_USERNAME")
+                password = System.getenv("OSSRH_PASSWORD")
+            }
         }
     }
 }
@@ -48,4 +82,14 @@ spotless {
     java {
         googleJavaFormat()
     }
+}
+
+apply plugin: 'signing'
+
+signing {
+    useInMemoryPgpKeys(
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PASSPHRASE")
+    )
+    sign publishing.publications.mavenJava
 }
