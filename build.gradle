@@ -41,20 +41,20 @@ spotless {
 }
 
 jreleaser {
-    project {
-        name = 'layer1-sdk-java-auth'
-        description = 'Layer1 Java SDK for Authentication'
-        website = 'https://github.com/bvnk/layer1-sdk-java-auth'
-        authors = ['BVNK <layer1@bvnk.com>']
-        license = "MIT"
-    }
-
-    release {
-        github {
-            name = 'layer1-sdk-java-auth'
-            draft = false
-        }
-    }
+//    project {
+//        name = 'layer1-sdk-java-auth'
+//        description = 'Layer1 Java SDK for Authentication'
+//        website = 'https://github.com/bvnk/layer1-sdk-java-auth'
+//        authors = ['BVNK <layer1@bvnk.com>']
+//        license = "MIT"
+//    }
+//
+//    release {
+//        github {
+//            name = 'layer1-sdk-java-auth'
+//            draft = false
+//        }
+//    }
 
     signing {
         active = 'ALWAYS'
@@ -66,9 +66,49 @@ jreleaser {
                 sonatype {
                     active = 'ALWAYS'
                     url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('local::file:./target/staging-deploy')
+                    stagingRepository('target/staging-deploy')
                 }
             }
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "${group}"
+            artifactId = "${project.name}"
+
+            from components.java
+
+            pom {
+                name ="${project.name}"
+                description = 'Layer1 Java SDK for Authentication'
+                url = 'https://github.com/bvnk/layer1-sdk-java-auth'
+                inceptionYear = '2025'
+                licenses {
+                    license {
+                        name = 'MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'bvnk'
+                        name = 'BVNK'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/bvnk/layer1-sdk-java-auth.git'
+                    developerConnection = 'scm:git:ssh://github.com/bvnk/layer1-sdk-java-auth.git'
+                    url = 'https://github.com/bvnk/layer1-sdk-java-auth'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
         }
     }
 }
