@@ -43,7 +43,6 @@ spotless {
 jreleaser {
     project {
         name = 'layer1-sdk-java-auth'
-        version = "${version}"
         description = 'Layer1 Java SDK for Authentication'
         website = 'https://github.com/bvnk/layer1-sdk-java-auth'
         authors = ['BVNK <layer1@bvnk.com>']
@@ -53,8 +52,6 @@ jreleaser {
     release {
         github {
             name = 'layer1-sdk-java-auth'
-            tagName = "${version}"
-            releaseName = "${version}"
             draft = false
         }
     }
