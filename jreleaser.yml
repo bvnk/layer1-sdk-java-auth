@@ -18,21 +18,10 @@ release:
 
 deploy:
   maven:
-    central:
-      active: ALWAYS
-      url: https://oss.sonatype.org/service/local/staging/deploy/maven2/
-      snapshotUrl: https://oss.sonatype.org/content/repositories/snapshots/
-      coordinates:
-        groupId: com.layer1.clients
-        artifactId: layer1-sdk-java-auth
-        version: 1.0.0
-      signing:
+    mavenCentral:
+      sonatype:
         active: ALWAYS
-      credentials:
-        username: {{ env.OSSRH_USERNAME }}
-        password: {{ env.OSSRH_PASSWORD }}
-      gpg:
-        passphrase: {{ env.GPG_PASSPHRASE }}
-        publicKey: {{ env.GPG_PUBLIC_KEY }}
-        secretKey: {{ env.GPG_PRIVATE_KEY }}
-        
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories:
+          - target/staging-deploy
+
